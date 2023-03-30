@@ -1,6 +1,7 @@
 const questionDisplay = document.querySelector('#questions');
 const startBtn = document.querySelector('#start-btn');
 const form = document.querySelector('#form');
+const initialInput = document.querySelector('#initial-form')
 
 form.style.display = 'none'
 
@@ -8,7 +9,8 @@ let currentQuestion ={}
 let acceptingAnswers = true
 let questionCounter = 0
 let availableQuestions = []
-
+let score = 0;
+let time = 100;
 
 let questions = [
     {
@@ -127,14 +129,13 @@ function getNewQuestion() {
 }
 
 function timer() {
-    var sec = 1000;
     var timer = setInterval(function(){
-        document.querySelector('#timer').innerText = 'Time: ' + sec;
-        sec--;
-        if (sec < 0 || availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
-            let score = sec + 1
-            endGame()
+        document.querySelector('#timer').innerText = 'Time: ' + time;
+        time--;
+        if (time < 0 || availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
+            score = time + 1
             clearInterval(timer);
+            endGame()
             document.querySelector('#final-score').innerText = 'Your score is: ' + score; 
         }
     }, 1000);
@@ -146,3 +147,15 @@ function endGame() {
     document.querySelector('#timer').style.display = 'none';
     form.style.display = 'block'
 }
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // prevent form from submitting and refreshing the page
+    
+    const initials = initialInput.value;
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    highScores.push({ initials, score });
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    
+    // redirect to high scores page or do something else
+    window.location.href = './highscores.html';
+  });

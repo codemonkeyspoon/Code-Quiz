@@ -26,3 +26,9 @@ button {
     height: 60px;
     border-radius: 40px;
 }
+
+#scoreList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
