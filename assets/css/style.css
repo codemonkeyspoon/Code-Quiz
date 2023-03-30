@@ -1,0 +1,28 @@
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+ main p {
+    width: 50%;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+button {
+    background-color: darkorchid;
+    color: white;
+    width: 150px;
+    height: 60px;
+    border-radius: 40px;
+}

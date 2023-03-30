@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Coding quiz Challenge</title>
+</head>
+<body>
+    <div class="flex-row">
+        <p>View High Scores</p>
+        <p id="timer">Time: 0</p>
+    </div>
+    <main>
+        <div class="flex-column" id="questions">
+            <h1>Coding Quiz Challenge</h1>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            <button id="start-btn" onclick="startGame()">Start Quiz</button>
+        </div>
+        <form action="./highscores.html" method="post" name="player" id="form">
+            <h2 id="final-score">Your score is:</h2>
+            <br>
+            <label for="initial-form">Enter Initials</label>
+            <input type="text" id="initial-form">
+            <input type="submit">
+        </form>
+    </main>
+    <script src="./assets/javascript/javascript.js"></script>
+</body>
+</html>
