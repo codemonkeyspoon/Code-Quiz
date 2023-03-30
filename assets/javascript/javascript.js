@@ -17,7 +17,7 @@ let questions = [
         choice2: 'Booleans',
         choice3: 'Alerts',
         choice4: 'Numbers',
-        answer: 'Alerts',
+        answer: '3'
     },
     {
         question: 'The condition in an if / else statement is enclosed with _____.',
@@ -25,7 +25,7 @@ let questions = [
         choice2: 'curly brackets',
         choice3: 'parenthesis',
         choice4: 'square brackets',
-        answer: 'parenthesis',
+        answer: '3'
     },
     {
         question: 'Arrays in JavaScript can be used to store _______.',
@@ -33,7 +33,7 @@ let questions = [
         choice2: 'other arrays',
         choice3: 'booleans',
         choice4: 'all of the above',
-        answer: 'all of the above',
+        answer: '4'
     },
     {
         question: 'String values must be enclosed within _____ when being assigned to variables.',
@@ -41,7 +41,7 @@ let questions = [
         choice2: 'curly brackets',
         choice3: 'quotes',
         choice4: 'parenthesis',
-        answer: 'quotes',
+        answer: '3'
     },
     {
         question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
@@ -49,7 +49,7 @@ let questions = [
         choice2: 'terminal/bash',
         choice3: 'for loops',
         choice4: 'console.log',
-        answer: 'console.log',
+        answer: '4'
     }
 ]
 
@@ -81,6 +81,11 @@ function getNewQuestion() {
     let choice2 = document.createElement('button')
     let choice3 = document.createElement('button')
     let choice4 = document.createElement('button')
+    // Set data- to buttons
+    choice1.dataset.choice = 1
+    choice2.dataset.choice = 2
+    choice3.dataset.choice = 3
+    choice4.dataset.choice = 4
     // Set text of buttons to choices of current question
     choice1.textContent = currentQuestion.choice1
     choice2.textContent = currentQuestion.choice2
@@ -93,7 +98,7 @@ function getNewQuestion() {
     questionDisplay.appendChild(choice4)
     
     const choices = document.querySelectorAll('button')
-
+    
     questionCounter++
 
     if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
@@ -102,7 +107,7 @@ function getNewQuestion() {
 
     for (var i = 0; i < choices.length; i++) {
         choices[i].addEventListener('click', function() {
-            if (this.textContent === currentQuestion.answer) {
+            if (this.dataset.choice === currentQuestion.answer) {
                     const correct = document.createElement('h2')
                     correct.textContent = 'Correct Answer';
                     questionDisplay.appendChild(correct);
