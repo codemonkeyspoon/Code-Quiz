@@ -2,7 +2,7 @@ const questionDisplay = document.querySelector('#questions');
 const startBtn = document.querySelector('#start-btn');
 const form = document.querySelector('#form');
 const initialInput = document.querySelector('#initial-form')
-
+const timer = document.querySelector('#timer')
 form.style.display = 'none'
 
 let currentQuestion ={}
@@ -10,8 +10,9 @@ let acceptingAnswers = true
 let questionCounter = 0
 let availableQuestions = []
 let score = 0;
-let time = 100;
+let time = 1000;
 
+// My array of question objects
 let questions = [
     {
         question: 'Commonly used datatypes DO not include:',
@@ -62,8 +63,8 @@ function startGame() {
     questionCounter = 0
     availableQuestions = [...questions]
     questionDisplay.style.display = 'none';
-    getNewQuestion();
     timer()
+    getNewQuestion();
 }
 
 function getNewQuestion() {
@@ -72,62 +73,59 @@ function getNewQuestion() {
     currentQuestion = availableQuestions[questionsIndex]
     questionDisplay.innerText = ''
     questionDisplay.style.display = 'flex'
-    // Create p tag
-    let question = document.createElement('p')
-    // Set text of p tag
-    question.textContent = currentQuestion.question
-    // Display p tag containing question
-    questionDisplay.appendChild(question)
-    // Create choice buttons
-    let choice1 = document.createElement('button')
-    let choice2 = document.createElement('button')
-    let choice3 = document.createElement('button')
-    let choice4 = document.createElement('button')
-    // Set data- to buttons
-    choice1.dataset.choice = 1
-    choice2.dataset.choice = 2
-    choice3.dataset.choice = 3
-    choice4.dataset.choice = 4
-    // Set text of buttons to choices of current question
-    choice1.textContent = currentQuestion.choice1
-    choice2.textContent = currentQuestion.choice2
-    choice3.textContent = currentQuestion.choice3
-    choice4.textContent = currentQuestion.choice4
-    // Append elements to page
-    questionDisplay.appendChild(choice1)
-    questionDisplay.appendChild(choice2)
-    questionDisplay.appendChild(choice3)
-    questionDisplay.appendChild(choice4)
-    
-    const choices = document.querySelectorAll('button')
-    
+    // Build HTML to display questions and choice buttons
+    const prompt = `
+        <p>${currentQuestion.question}</p>
+        <div id="choiceSelection">
+        <button data-choice="1">${currentQuestion.choice1}</button>
+        <button data-choice="2">${currentQuestion.choice2}</button>
+        <button data-choice="3">${currentQuestion.choice3}</button>
+        <button data-choice="4">${currentQuestion.choice4}</button>
+        </div>`
+        questionDisplay.innerHTML = prompt;
+        const choiceSelection = document.querySelector('#choiceSelection')
+        choiceSelection.addEventListener('click', (e) => {
+            let selected = e.target
+        
+            if (selected.matches('button')) {
+                checkQuestion();
+            }
+        })
+    // Increment to next question
     questionCounter++
-
-    if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
+    // End game at max questions or no more in the array
+    if (availableQuestions.length < 0 || questionCounter > MAX_QUESTIONS) {
         endGame()
-    }
-
-    for (var i = 0; i < choices.length; i++) {
-        choices[i].addEventListener('click', function() {
-            if (this.dataset.choice === currentQuestion.answer) {
-                    const correct = document.createElement('h2')
-                    correct.textContent = 'Correct Answer';
-                    questionDisplay.appendChild(correct);
-                    setTimeout(() => {
-                        getNewQuestion();
-                    }, 1000);
-                } else {
-                    const incorrect = document.createElement('h2');
-                    incorrect.textContent = 'Incorrect Answer';
-                    questionDisplay.appendChild(incorrect);
-                    setTimeout(() => {
-                        getNewQuestion();
-                    }, 1000);
-                }
-        });
     }
 }
 
+
+
+function checkQuestion () {
+    // Logic for determining correct or incorrect selection
+        if (this.dataset.choice === currentQuestion.answer) {
+            const correct = document.createElement('h2')
+            correct.textContent = 'Correct Answer';
+            questionDisplay.appendChild(correct);
+            availableQuestions.splice(questionsIndex, 1);
+            setTimeout(() => {
+                getNewQuestion();
+            }, 1000);
+        } else {
+            const incorrect = document.createElement('h2');
+            incorrect.textContent = 'Incorrect Answer';
+            questionDisplay.appendChild(incorrect);
+            availableQuestions.splice(questionsIndex, 1);
+            setTimeout(() => {
+                getNewQuestion();
+        }, 1000);
+    }
+};
+    
+
+
+
+// Begins and sets timer text for user
 function timer() {
     var timer = setInterval(function(){
         document.querySelector('#timer').innerText = 'Time: ' + time;
@@ -156,6 +154,36 @@ form.addEventListener('submit', function(event) {
     highScores.push({ initials, score });
     localStorage.setItem('highScores', JSON.stringify(highScores));
     
-    // redirect to high scores page or do something else
+    // redirect to high scores page 
     window.location.href = './highscores.html';
   });
+
+
+
+
+  // Create p tag
+    //let question = document.createElement('p')
+    // Set text of p tag
+    //question.textContent = currentQuestion.question
+    // Display p tag containing question
+    //questionDisplay.appendChild(question)
+    // Create choice buttons
+    //let choice1 = document.createElement('button')
+    // let choice2 = document.createElement('button')
+    // let choice3 = document.createElement('button')
+    // let choice4 = document.createElement('button')
+    // // Set data- to buttons
+    // choice1.dataset.choice = 1
+    // choice2.dataset.choice = 2
+    // choice3.dataset.choice = 3
+    // choice4.dataset.choice = 4
+    // // Set text of buttons to choices of current question
+    // choice1.textContent = currentQuestion.choice1
+    // choice2.textContent = currentQuestion.choice2
+    // choice3.textContent = currentQuestion.choice3
+    // choice4.textContent = currentQuestion.choice4
+    // // Append elements to page
+    // questionDisplay.appendChild(choice1)
+    // questionDisplay.appendChild(choice2)
+    // questionDisplay.appendChild(choice3)
+    // questionDisplay.appendChild(choice4)
