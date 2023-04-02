@@ -10,50 +10,50 @@ let currentQuestion ={}
 let acceptingAnswers = true
 let questionCounter = 0
 let availableQuestions = []
-let time = 5;
+let time = 70;
 let score = 0;
 
 // My array of question objects
 let questions = [
     {
-        question: 'Commonly used datatypes DO not include:',
-        choice1: 'Strings',
-        choice2: 'Booleans',
-        choice3: 'Alerts',
-        choice4: 'Numbers',
-        answer: '3'
-    },
-    {
-        question: 'The condition in an if / else statement is enclosed with _____.',
-        choice1: 'quotes',
-        choice2: 'curly brackets',
-        choice3: 'parenthesis',
-        choice4: 'square brackets',
-        answer: '3'
-    },
-    {
-        question: 'Arrays in JavaScript can be used to store _______.',
-        choice1: 'numbers and strings',
-        choice2: 'other arrays',
-        choice3: 'booleans',
-        choice4: 'all of the above',
+        question: 'Which of these can be used to declare variables in JavaScript?',
+        choice1: 'const',
+        choice2: 'let',
+        choice3: 'var',
+        choice4: 'All of the above',
         answer: '4'
     },
     {
-        question: 'String values must be enclosed within _____ when being assigned to variables.',
-        choice1: 'commas',
-        choice2: 'curly brackets',
-        choice3: 'quotes',
-        choice4: 'parenthesis',
+        question: 'What does DOM stand for?',
+        choice1: 'Document Object Model',
+        choice2: 'Document Observer Mode',
+        choice3: 'Display Object Memmory',
+        choice4: 'Drive only Memmory',
+        answer: '1'
+    },
+    {
+        question: 'How do you create a function in JavaScript?',
+        choice1: 'function = myFunction()',
+        choice2: 'function:myFunction()',
+        choice3: 'function myFunction()',
+        choice4: 'function.myFunction()',
         answer: '3'
     },
     {
-        question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
-        choice1: 'JavaScript',
-        choice2: 'terminal/bash',
-        choice3: 'for loops',
-        choice4: 'console.log',
-        answer: '4'
+        question: 'How does a FOR loop start?',
+        choice1: ' for (i = 0; i <= 5)',
+        choice2: ' for i = 1 to 5',
+        choice3: ' for (i = 0; i <= 5; i++)',
+        choice4: ' for (i <= 5; i++)',
+        answer: '3'
+    },
+    {
+        question: 'How do you write "Hello World" in an alert box?',
+        choice1: 'msg("Hello World");',
+        choice2: 'msgBox("Hello World");',
+        choice3: 'alert("Hello World");',
+        choice4: 'alertBox("Hello World");',
+        answer: '3'
     }
 ]
 
@@ -102,13 +102,15 @@ function buildQuestion() {
   function checkAnswer(currentQuestion, questionsIndex, availableQuestions, button) {
     if (button.dataset.choice === currentQuestion.answer) {
       const correct = document.createElement('h2');
+      correct.style.color = 'green';
       correct.textContent = 'Correct Answer';
       questionDisplay.appendChild(correct);
     } else {
-      time = time - 50;
-      const correct = document.createElement('h2');
-      correct.textContent = 'Incorrect Answer';
-      questionDisplay.appendChild(correct);
+      time = time - 10;
+      const incorrect = document.createElement('h2');
+      incorrect.style.color = 'red';
+      incorrect.textContent = 'Incorrect Answer';
+      questionDisplay.appendChild(incorrect);
     }
     // Move on to the next question
     availableQuestions.splice(questionsIndex, 1);

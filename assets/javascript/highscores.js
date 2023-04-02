@@ -10,7 +10,7 @@ function displayHighScore() {
       const sortedScores = highScores.sort((a, b) => b.score - a.score);
       
       // Display each high score in a list
-      const highScoresList = document.createElement('ul');
+      const highScoresList = document.createElement('ol');
       sortedScores.forEach(score => {
         const listItem = document.createElement('li');
         listItem.textContent = `${score.initials}: ${score.score}`;

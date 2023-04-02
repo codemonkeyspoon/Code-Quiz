@@ -32,3 +32,13 @@ button {
     flex-direction: column;
     align-items: center;
 }
+
+#choiceSelection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+p {
+    font-size: 1.5rem;
+}
